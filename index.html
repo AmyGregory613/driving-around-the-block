@@ -21,7 +21,37 @@
 		<div class="intersection intersection4"></div>
 	</div>
 	<script type="text/javascript">
-		
+		let car = document.querySelector(".car");
+		var intervalId;
+
+		reset();
+		start();
+		stop();
+
+		function reset(){
+			car.style.top = "70px";
+			car.style.left = "80px";
+		}
+
+		function moveCarRight(){
+			console.log("moveCarRight");
+			car.style.left = `${parseInt(car.style.left.replace("px", "")) + 10}px`;
+			let carLeft = getComputedStyle(car).left.replace("px", "");
+			//STOP AT INTERSECTION
+			if (carLeft >= 450) {
+				stop();
+				waitToMove(enterIntersection2);
+				console.log("left = " + carLeft);
+			}
+		}
+
+		function start(){
+			intervalId = setInterval(moveCarRight, 50);
+		}
+
+		function stop(){
+			clearInterval(intervalId);
+		}
 	</script>
 </body>
 </html>
