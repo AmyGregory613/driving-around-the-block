@@ -69,6 +69,21 @@
 	            }
 			}, 500);
 		}
+		// ROTATE CAR = TURN RIGHT
+		var totalDegreesRotated = 0;
+
+		var rotateCar = function(direction){
+			var degreesToIncrement;
+			if (direction == 0){
+				degreesToIncrement = 90;
+			} else {
+				degreesToIncrement = -90;
+			}
+			totalDegreesRotated = totalDegreesRotated + degreesToIncrement;
+			document.querySelector(".car").style.transform = `rotate(${totalDegreesRotated}deg)`;
+		}
+		// MOVE DOWN
+		
 
 		function start(){
 			intervalId = setInterval(moveCarRight, 50);
