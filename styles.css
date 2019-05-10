@@ -1,0 +1,67 @@
+#container{
+	position: absolute;
+	width: 600px;
+	height: 600px;
+	border: 1px solid black;
+}
+.car{
+	position: absolute;
+	background-color: turquoise;
+	width: 50px;
+	height: 20px;
+	top: 60px;
+	left:80px;
+	z-index:500;
+}
+.street{
+	position: absolute;
+	background-color: yellow;
+	z-index: 100;
+}
+.street1{
+	height: 100px;
+	width: 400px;
+	top: 0px;
+	left: 100px;
+}
+.street2 {
+	height: 400px;
+	width: 100px;
+	top: 100px;
+	left: 500px;
+}
+.street3{
+	height: 100px;
+	width: 400px;
+	top: 500px;
+	left: 100px;
+}
+.street4 {
+	height: 400px;
+	width: 100px;
+	top: 100px;
+	left: 0px;
+}
+.intersection{
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background-color: red;
+	z-index: 100;
+}
+.intersection1{
+	top: 0px;
+	left: 0px;
+}
+.intersection2{
+	top: 0px;
+	left: 500px;
+}
+.intersection3{
+	top: 500px;
+	left: 500px;
+}
+.intersection4{
+	top: 500px;
+	left: 0px;
+}
