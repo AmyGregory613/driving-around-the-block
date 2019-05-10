@@ -44,6 +44,31 @@
 				console.log("left = " + carLeft);
 			}
 		}
+		// WAIT BEFORE MOVING INTO INTERSECTION
+		function waitToMove(handler){
+			console.log("Wait to move!");
+			setTimeout(handler, 1000);
+		}
+		// ENTER INTERSECTION2
+		function enterIntersection2(){
+			console.log("Entering Intersection");
+			intervalId = setInterval(function(){
+				car.style.left = `${parseInt(car.style.left.replace("px", " ")) + 5}px`;
+				let carLeft = getComputedStyle(car).left.replace("px", " ");
+				var i2 = document.querySelector(".intersection2");
+
+				var left = parseInt(getComputedStyle(i2).left.replace("px", " "));
+				var width = parseInt(getComputedStyle(i2).width.replace("px", " "));
+
+				var turnHere = (width / 4) + left;
+	            if (carLeft > (turnHere - 5) && carLeft < (turnHere + 5)) {
+	                console.log("turning");
+	                stop();
+	                rotateCar();
+	                moveCarDown();
+	            }
+			}, 500);
+		}
 
 		function start(){
 			intervalId = setInterval(moveCarRight, 50);
