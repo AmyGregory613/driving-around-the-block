@@ -1,140 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Drving Around the Block</title>
-	<link rel="stylesheet" type="text/css" href="styles.css" />
+    <meta charset="UTF-8">
+    <title>Drving Around the Block</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
+
 <body>
-	<input type="button" value="Reset" onclick="reset()"/>
-	<input type="button" value="Start" onclick="start()"/>
-	<input type="button" value="Stop" onclick="stop()"/>
-	<div id="container">
-		<div class="car"></div>
-		<div class="street street1"></div>
-		<div class="street street2"></div>
-		<div class="street street3"></div>
-		<div class="street street4"></div>
-		<div class="intersection intersection1"></div>
-		<div class="intersection intersection2"></div>
-		<div class="intersection intersection3"></div>
-		<div class="intersection intersection4"></div>
-	</div>
-	<script type="text/javascript">
-		let car = document.querySelector(".car");
-		var intervalId;
+    <input type="button" value="Reset" onclick="reset()" />
+    <input type="button" value="Start" onclick="start()" />
+    <input type="button" value="Stop" onclick="stop()" />
+    <div id="container">
+        <div class="car"></div>
+        <div class="street street1"></div>
+        <div class="street street2"></div>
+        <div class="street street3"></div>
+        <div class="street street4"></div>
+        <div class="intersection intersection1"></div>
+        <div class="intersection intersection2"></div>
+        <div class="intersection intersection3"></div>
+        <div class="intersection intersection4"></div>
+    </div>
+    <script type="text/javascript">
+    let car = document.querySelector(".car");
+    var intervalId;
 
-		reset();
-		start();
-		stop();
+    reset();
+    start();
+    stop();
 
-		function reset(){
-			car.style.top = "70px";
-			car.style.left = "80px";
-		}
+    function reset() {
+        car.style.top = "70px";
+        car.style.left = "80px";
+    }
 
-		function moveCarRight(){
-			console.log("moveCarRight");
-			car.style.left = `${parseInt(car.style.left.replace("px", "")) + 10}px`;
-			let carLeft = getComputedStyle(car).left.replace("px", "");
-			//STOP AT INTERSECTION
-			if (carLeft >= 450) {
-				stop();
-				waitToMove(enterIntersection2);
-				console.log("left = " + carLeft);
-			}
-		}
-		// WAIT BEFORE MOVING INTO INTERSECTION
-		function waitToMove(handler){
-			console.log("Wait to move!");
-			setTimeout(handler, 1000);
-		}
-		// ENTER INTERSECTION2
-		function enterIntersection2(){
-			console.log("Entering Intersection");
-			intervalId = setInterval(function(){
-				car.style.left = `${parseInt(car.style.left.replace("px", " ")) + 5}px`;
-				let carLeft = getComputedStyle(car).left.replace("px", " ");
-				var i2 = document.querySelector(".intersection2");
-
-				var left = parseInt(getComputedStyle(i2).left.replace("px", " "));
-				var width = parseInt(getComputedStyle(i2).width.replace("px", " "));
-
-				var turnHere = (width / 4) + left;
-	            if (carLeft > (turnHere - 5) && carLeft < (turnHere + 5)) {
-	                console.log("turning");
-	                stop();
-	                rotateCar();
-	                moveCarDown();
-	            }
-			}, 500);
-		}
-		// ROTATE CAR = TURN RIGHT
-		var totalDegreesRotated = 0;
-
-		var rotateCar = function(direction){
-			var degreesToIncrement;
-			if (direction == 0){
-				degreesToIncrement = 90;
-			} else {
-				degreesToIncrement = -90;
-			}
-			totalDegreesRotated = totalDegreesRotated + degreesToIncrement;
-			document.querySelector(".car").style.transform = `rotate(${totalDegreesRotated}deg)`;
-		}
-		// MOVE DOWN
-		function moveCarDown (){
-			console.log ("moveCarDown");
-			intervalId = setInterval(function(){
-				car.style.top = `${parseInt(car.style.top.replace("px", " ")) + 10}px`;
-				let carTop = getComputedStyle(car).top.replace("px", " ");
-				// STOP AT INTERSECTION
-				if(carTop >=480){
-					console.log("Look both ways!");
-					stop();
-					waitToMove(enterIntersection3);
-					console.log('position = ' + carTop);
-				}
-			}, 50);
-		}
-		 
-		 // ENTER INTERSECTION
-		 function enterIntersection3() {
+    function moveCarRight() {
+        console.log("moveCarRight");
+        car.style.left = `${parseInt(car.style.left.replace("px", "")) + 10}px`;
+        let carLeft = getComputedStyle(car).left.replace("px", "");
+        //STOP AT INTERSECTION
+        if (carLeft >= 450) {
+            stop();
+            waitToMove(enterIntersection2);
+            console.log("left = " + carLeft);
+        }
+    }
+    // WAIT BEFORE MOVING INTO INTERSECTION
+    function waitToMove(handler) {
+        console.log("Wait to move!");
+        setTimeout(handler, 1000);
+    }
+    // ENTER INTERSECTION2
+    function enterIntersection2() {
         console.log("Entering Intersection");
         intervalId = setInterval(function() {
-            car.style.top = `${parseInt(car.style.top.replace("px"," ")) + 5}px`;
-            let carTop = getComputedStyle(car).top.replace('px', '');
-            var i3 = document.querySelector(".intersection3");
+            car.style.left = `${parseInt(car.style.left.replace("px", " ")) + 5}px`;
+            let carLeft = getComputedStyle(car).left.replace("px", " ");
+            var i2 = document.querySelector(".intersection2");
 
-            var top = parseInt(getComputedStyle(i3).top.replace("px", " "));
-            var height = parseInt(getComputedStyle(i3).height.replace("px", " "));
+            var left = parseInt(getComputedStyle(i2).left.replace("px", " "));
+            var width = parseInt(getComputedStyle(i2).width.replace("px", " "));
 
-            var turnHere = (height / 4) + top;
-            if (carTop > (turnHere - 5) && carTop < (turnHere + 5)) {
+            var turnHere = left;
+            if (carLeft > (turnHere - 1) && carLeft < (turnHere +1)) {
                 console.log("turning");
                 stop();
                 rotateCar();
-                moveCarLeft();
+                moveCarDown();
             }
-
         }, 500);
     }
-		 // MOVE CAR TO LEFT
-		 // STOP AT INTERSECTION
-		 // ENTER INTERSECTION
-		 // ROTATE = TURN RIGHT
-		 // MOVE UP
-		  // STOP AT INTERSECTION
-		 // ENTER INTERSECTION
-		 // ROTATE = TURN RIGHT
+    // ROTATE CAR = TURN RIGHT
+    var totalDegreesRotated = 0;
 
-		function start(){
-			intervalId = setInterval(moveCarRight, 50);
-		}
+    var rotateCar = function(direction) {
+        var degreesToIncrement;
+        if (direction == 0) {
+            degreesToIncrement = 90;
+        } else {
+            degreesToIncrement = -90;
+        }
+        totalDegreesRotated = totalDegreesRotated + degreesToIncrement;
+        document.querySelector(".car").style.transform = `rotate(${totalDegreesRotated}deg)`;
+    }
+    // MOVE DOWN
+    function moveCarDown() {
+        console.log("moveCarDown");
+        intervalId = setInterval(function() {
+            car.style.top = `${parseInt(car.style.top.replace("px", " ")) + 10}px`;
+            let carTop = getComputedStyle(car).top.replace("px", " ");
+            // STOP AT INTERSECTION
+            if (carTop >= 480) {
+                console.log("Look both ways!");
+                stop();
+                waitToMove(enterIntersection3);
+                console.log('position = ' + carTop);
+            }
+        }, 50);
+    }
 
-		function stop(){
-			clearInterval(intervalId);
-		}
+    // ENTER INTERSECTION
+    function enterIntersection3() {
+        console.log("Entering Intersection");
+        intervalId = setInterval(function() {
+                    car.style.top = `${parseInt(car.style.top.replace("px"," ")) + 5}px`;
+                    let carTop = getComputedStyle(car).top.replace('px', '');
+                    var i3 = document.querySelector(".intersection3");
+
+                    var top = parseInt(getComputedStyle(i3).top.replace("px", " "));
+                    var height = parseInt(getComputedStyle(i3).height.replace("px", " "));
+
+                    var turnHere = top;
+                    if (carTop > (turnHere - 1) && carTop < (turnHere + 1)) {
+                        console.log("turning");
+                        stop(); 
+                        rotateCar(); 
+                        moveCarLeft(); 
+                    } 
+                }, 500); 
+    }
+    // MOVE CAR TO LEFT
+    function moveCarLeft() {
+        console.log("moveCarLeft");
+        intervalId = setInterval(function() {
+            let carLeft = parseInt(car.style.left.replace("px", " ")) - 10;
+            car.style.left = `${carLeft}px`;
+            // STOP AT INTERSECTION
+            if (carLeft <= 100) {
+                stop();
+                waitToMove(enterIntersection4);
+                console.log("left = " + carLeft);
+            }
+        }, 50);
+    }
+
+	// ENTER INTERSECTION
+	function enterIntersection4() {
+		console.log("Entering Intersection");
+		intervalId = setInterval(function() {
+			car.style.left = `${parseInt(car.style.left.replace("px"," ")) - 5}px`;
+			let carLeft = getComputedStyle(car).left.replace('px', '');
+
+			var i4 = document.querySelector(".intersection4");
+			var left = parseInt(getComputedStyle(i4).left.replace("px", " "));
+			var width = parseInt(getComputedStyle(i4).width.replace("px", " "));
+
+			var turnHere = left + (width / 2);
+            if (carLeft > (turnHere - 5) && carLeft < (turnHere + 5)) { 
+				console.log("turning"); 
+				stop(); rotateCar(); 
+				moveCarUp(); 
+			} 
+		}, 500); 
+	}
+    // MOVE UP
+	function moveCarUp() {
+        console.log("moveCarUp");
+        intervalId = setInterval(function() {
+            car.style.top = `${parseInt(car.style.top.replace("px"," ")) - 10}px`;
+            let carTop = getComputedStyle(car).top.replace('px', '');
+
+            // STOP AT INTERSECTION
+
+            if (carTop <= 100) { //include height of car
+                console.log("Look both ways!");
+                stop();
+                waitToMove(enterIntersection1);
+                console.log('position = ' + carTop);
+
+            }
+        }, 50);
+    }
+    function moveCarUp() {
+        console.log("moveCarUp");
+        intervalId = setInterval(function() {
+            car.style.top = `${parseInt(car.style.top.replace("px"," ")) - 10}px`;
+            let carTop = getComputedStyle(car).top.replace('px', '');
+
+            // STOP AT INTERSECTION
+
+            if (carTop <= 110) { 
+                console.log("Look both ways!");
+                stop();
+                waitToMove(enterIntersection1);
+                console.log('position = ' + carTop);
+
+            }
+        }, 50);
+    }
+
+    function enterIntersection1() {
+        console.log("Entering Intersection");
+        intervalId = setInterval(function() {
+                    car.style.top = `${parseInt(car.style.top.replace("px"," ")) - 5}px`;
+                    let carTop = getComputedStyle(car).top.replace('px', '');
+                    var i1 = document.querySelector(".intersection1");
+
+                    var top = parseInt(getComputedStyle(i1).top.replace("px", " "));
+                    var height = parseInt(getComputedStyle(i1).height.replace("px", " "));
+
+                    var turnHere = top + height - (height / 4);
+                    if (carTop > (turnHere - 5) && carTop < (turnHere + 5)) {
+                        console.log("turning");
+                        stop();
+                        rotateCar();
+                    }
+                }, 500);
+    }
+
+    function start() {
+        intervalId = setInterval(moveCarRight, 50);
+    	}
+
+    function stop() {
+	    clearInterval(intervalId);
+	    }
+	
 	</script>
+
 </body>
+
 </html>
